@@ -1,0 +1,9 @@
+PT2313	KEYWORD1
+
+initialize	KEYWORD2
+source	KEYWORD2
+volume	KEYWORD2
+equalize	KEYWORD2
+balance	KEYWORD2
+gain	KEYWORD2
+loudness	KEYWORD2

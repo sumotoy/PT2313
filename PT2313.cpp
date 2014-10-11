@@ -8,7 +8,9 @@ volume:muted or presetted
 */
 void PT2313::initialize(byte src,bool muted){
 	Wire.begin();
+	#if !defined(ENERGIA)
 	TWBR = ((F_CPU / 100000L) - 16) / 2;//force to 100khz!
+	#endif
 	if (muted){
 		volume(63);//muted
 	} else {
@@ -17,8 +19,8 @@ void PT2313::initialize(byte src,bool muted){
 	audioSwitch_reg = 0x5C;
 	source(src);
 	balance(0);
-	equalize(0,0);
-	equalize(1,0);
+	bass(0);
+	treble(0);
 }
 
 
@@ -79,7 +81,22 @@ void PT2313::volume(byte val) {
 	writeByte(PT2313_VOL_REG|(0x3F - val));
 }
 
-void PT2313::equalize(bool band,int val){
+void PT2313::bass(int val){
+	byte temp = eqsubroutine(val);
+	writeByte(PT2313_BASS_REG|temp);
+}
+
+void PT2313::treble(int val){
+	byte temp = eqsubroutine(val);
+	writeByte(PT2313_TREBLE_REG|temp);
+}
+
+void PT2313::equalize(int bass_val,int treble_val){
+	bass(bass_val);
+	treble(treble_val);
+}
+
+byte PT2313::eqsubroutine(int val){
 	byte temp;
 	val = boundary(val,-7,7);
 	if (val < 0) {
@@ -87,31 +104,9 @@ void PT2313::equalize(bool band,int val){
 	} else {
 		temp = 15 - val;
 	}
-	if (band == 1){//treble
-		writeByte(PT2313_TREBLE_REG|temp);
-	} else {//bass
-		writeByte(PT2313_BASS_REG|temp);
-	}
+	return temp;
 }
 
-void PT2313::equalize(int bss,int trb){
-	byte tempT;
-	byte tempB;
-	bss = boundary(bss,-7,7);
-	trb = boundary(trb,-7,7);
-	if (trb < 0) {
-		tempT = 7 - abs(trb);
-	} else {
-		tempT = 15 - trb;
-	}
-	if (bss < 0) {
-		tempB = 7 - abs(bss);
-	} else {
-		tempB = 15 - bss;
-	}
-	writeByte(PT2313_TREBLE_REG|tempT);
-	writeByte(PT2313_BASS_REG|tempB);
-}
 
 
 void PT2313::balance(int val) {

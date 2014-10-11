@@ -1,8 +1,23 @@
+/*
+	--------------------------------------------------
+	PT2313 Audio Chip Library for:
+	Arduino's/Teensy3/Energia IDE (stellaris, etc.)
+	--------------------------------------------------
+	Version:0.50 Compatibility(?) with Energia IDE
+	++++++++++++++++++++++++++++++++++++++++++++++++++
+	Written by: Max MC Costa for s.u.m.o.t.o.y
+	++++++++++++++++++++++++++++++++++++++++++++++++++
+
+*/
 
 #ifndef PT2313_h
 #define PT2313_h
 
+#if defined(ENERGIA) // LaunchPad, FraunchPad and StellarPad specific
+#include "Energia.h"
+#else
 #include "Arduino.h"
+#endif
 #include "Wire.h"
 
 #define PT2313_ADDR            0x44
@@ -21,12 +36,14 @@ public:
     void    initialize(byte source=0,bool muted=true);
 	void	source	(byte val);
 	void	volume	(byte val);
-	void	equalize(bool band,int val);
-	void	equalize(int bss,int trb);
+	void    bass(int val);
+	void    treble(int val);
+	void 	equalize(int bass_val,int treble_val);
 	void	balance	(int val);
 	void    gain    (byte val);
 	void    loudness(bool val);
 private:
+	byte 	eqsubroutine(int val);
 	void    writeByte(byte val);
 	int		boundary(int val,int min,int max);
 	uint8_t	audioSwitch_reg;

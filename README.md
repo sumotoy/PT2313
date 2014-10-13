@@ -7,3 +7,5 @@ The library let you access all features by using I2C protocol with Arduino o Tee
 I've done this to create a stereo amped speakers I had at home.
 
 For connections, refer to datasheet included in docs folder. Have fun!
+
+**Warning**: Energia support just as it's basic stage and not tested. It compiles but doesn't mean that will works! So please wait I test it (and prolly fix) before use it with Energia MCU's!<br>

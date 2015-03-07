@@ -8,9 +8,11 @@ volume:muted or presetted
 */
 void PT2313::initialize(byte src,bool muted){
 	Wire.begin();
-	#if !defined(ENERGIA)
-	TWBR = ((F_CPU / 100000L) - 16) / 2;//force to 100khz!
-	#endif
+#if ARDUINO >= 157
+	Wire.setClock(100000UL); // Set I2C frequency to 100kHz
+#else
+	TWBR = ((F_CPU / 100000UL) - 16) / 2; // Set I2C frequency to 100kHz
+#endif
 	if (muted){
 		volume(63);//muted
 	} else {
@@ -89,11 +91,6 @@ void PT2313::bass(int val){
 void PT2313::treble(int val){
 	byte temp = eqsubroutine(val);
 	writeByte(PT2313_TREBLE_REG|temp);
-}
-
-void PT2313::equalize(int bass_val,int treble_val){
-	bass(bass_val);
-	treble(treble_val);
 }
 
 byte PT2313::eqsubroutine(int val){

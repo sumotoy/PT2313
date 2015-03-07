@@ -11,7 +11,7 @@ void setup(){
   audioChip.loudness(true);//true or false
   audioChip.bass(0);//bass -7...+7
   audioChip.treble(0);//treble -7...+7
-  audioChip.equalize(-1,1);//bass & treble -7...+7
+  audioChip.balance(0);//-31...+31
 }
 void loop(){
 }

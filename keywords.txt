@@ -5,7 +5,6 @@ source	KEYWORD2
 volume	KEYWORD2
 bass	KEYWORD2
 treble	KEYWORD2
-equalize	KEYWORD2
 balance	KEYWORD2
 gain	KEYWORD2
 loudness	KEYWORD2

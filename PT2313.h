@@ -1,4 +1,19 @@
+/*
+                               _                
+ ___  _   _  _ __ ___    ___  | |_  ___   _   _ 
+/ __|| | | || '_ ` _ \  / _ \ | __|/ _ \ | | | |
+\__ \| |_| || | | | | || (_) || |_| (_) || |_| |
+|___/ \__,_||_| |_| |_| \___/  \__|\___/  \__, |
+                                          |___/ 
+PT2313 Library
+----------------------------------------
+A C library for Princeton Technology Corp PT2313 L or E Audio Chip (I2C)
+version 1.0
+coded by Max MC Costa
+--------------------------------------------------------
+Library works with most arduino compatible processors and teensy3
 
+*/
 #ifndef PT2313_h
 #define PT2313_h
 
@@ -21,8 +36,6 @@ public:
     void    initialize(byte source=0,bool muted=true);
 	void	source	(byte val);
 	void	volume	(byte val);
-	//void	equalize(bool band,int val);
-	//void	equalize(int bss,int trb);
 	void    bass(int val);
 	void    treble(int val);
 	void	balance	(int val);

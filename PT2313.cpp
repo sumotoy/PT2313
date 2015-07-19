@@ -27,7 +27,7 @@ void PT2313::initialize(byte src,bool muted){
 
 
 void PT2313::source(byte val) {
-	if (val > 3) val = 3;
+	val = val % 3; //range 0-2
 	switch(val){
 	case 0:
 		bitClear(audioSwitch_reg,0);
@@ -46,7 +46,7 @@ void PT2313::source(byte val) {
 }
 
 void PT2313::gain(byte val) {
-	if (val > 3) val = 3;
+	val = val % 4; //range 0-3
 	switch(val){
 	case 0://0db
 		bitSet(audioSwitch_reg,3);
